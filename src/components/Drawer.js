@@ -1,10 +1,15 @@
-function Drawer() {
+function Drawer(props) {
   return (
-    <div style={{ display: 'none' }} className="overlay">
+    <div className="overlay">
       <div className="drawer">
         <h2 className="d-flex justify-between mb-30">
           Cart
-          <img className="cu-p" src="/img/btn-remove.svg" alt="Remove" />
+          <img
+            onClick={props.onClose}
+            className="cu-p"
+            src="/img/btn-remove.svg"
+            alt="Close"
+          />
         </h2>
 
         <div className="items">
@@ -28,7 +33,7 @@ function Drawer() {
             />
 
             <div className="mr-20 flex">
-              <p className="mb-5">Men's sneakers Nike Blazer Mid Suede</p>
+              <p className="mb-5">Men's sneakers Nike Air Max 270</p>
               <b>555 $</b>
             </div>
             <img className="removeBtn" src="/img/btn-remove.svg" alt="Remove" />
