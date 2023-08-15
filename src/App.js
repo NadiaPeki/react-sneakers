@@ -1,10 +1,11 @@
 import React from 'react'
-import Card from './components/Card'
+import Card from './components/Card/Card'
 import Header from './components/Header'
 import Drawer from './components/Drawer'
 
 function App() {
   const [items, setItems] = React.useState([])
+  const [cartItems, setCartItems] = React.useState([])
   const [cartOpened, setCartOpened] = React.useState(false)
 
   React.useEffect(() => {
@@ -17,9 +18,17 @@ function App() {
       })
   }, [])
 
+  const onAddToCart = (obj) => {
+    setCartItems((prev) => [...prev, obj])
+
+    // добавили новый объект к старым данным в массиве
+  }
+
   return (
     <div className="wrapper clear">
-      {cartOpened ? <Drawer onClose={() => setCartOpened(false)} /> : null}
+      {cartOpened ? (
+        <Drawer items={cartItems} onClose={() => setCartOpened(false)} />
+      ) : null}
 
       <Header onClickCart={() => setCartOpened(true)} />
       <div className="content p-40">
@@ -32,13 +41,13 @@ function App() {
         </div>
 
         <div className="d-flex flex-wrap">
-          {items.map((obj) => (
+          {items.map((item) => (
             <Card
-              title={obj.title}
-              price={obj.price}
-              imageUrl={obj.imageUrl}
+              title={item.title}
+              price={item.price}
+              imageUrl={item.imageUrl}
               onFavorite={() => console.log('Add to favorite')}
-              onPlus={() => console.log('Add to cart')}
+              onPlus={(obj) => onAddToCart(obj)}
             />
           ))}
         </div>
