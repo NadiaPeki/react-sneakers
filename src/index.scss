@@ -85,6 +85,16 @@ header {
   border: 1px solid #f3f3f3;
   border-radius: 10px;
   padding: 0 15px;
+  position: relative;
+
+  .clear {
+    position: absolute;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    top: 14px;
+    right: 15px;
+  }
 
   input {
     border: 0;
@@ -112,9 +122,10 @@ header {
   right: 0;
   background: #ffffff;
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  padding: 20px;
 
   .items {
+
     flex: 1;
     overflow: auto;
     margin-bottom: 40px;
@@ -211,5 +222,44 @@ header {
 
   &:active {
     background: darken (#9dd558, 5%);
+  }
+}
+
+.cartEmpty {
+  text-align: center;
+
+  p {
+    width: 280px;
+    line-height: 24px;
+  }
+}
+.greenButtonBack {
+  width: 245px;
+  height: 55px;
+  background: #9dd558;
+  border-radius: 18px;
+  border: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.1s ease-in-out;
+  position: relative;
+
+  &:hover {
+    background: lighten(#9dd558, 5%);
+    img {
+      transform: translateX(5px);
+    }
+  }
+
+  &:active {
+    background: darken (#9dd558, 5%);
+  }
+
+  img {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    transition: transform 0.2s ease-in-out;
   }
 }

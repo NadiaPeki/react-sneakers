@@ -1,4 +1,4 @@
-function Drawer({ onClose, items = [] }) {
+function Drawer({ onClose, onRemove, items = [] }) {
   // передаем items значение по умолчанию
   return (
     <div className="overlay">
@@ -12,6 +12,22 @@ function Drawer({ onClose, items = [] }) {
             alt="Close"
           />
         </h2>
+
+        <div className="cartEmty d-flex align-center justify-center flex-column flex">
+          <img
+            className="mb-20"
+            width="120px"
+            height="120px"
+            src="/img/empty-cart.jpg"
+            alt="Empty"
+          />
+          <h2>Cart is empty</h2>
+          <p className="opacity-6">Add at least one pair of sneakers to order</p>
+          <button className="greenButtonBack">
+            <img src="/img/arrow.svg" alt="Arrow" />
+            Come back
+          </button>
+        </div>
 
         <div className="items">
           {items.map((obj) => (
@@ -27,6 +43,7 @@ function Drawer({ onClose, items = [] }) {
                   <b>{obj.price} $</b>
                 </div>
                 <img
+                  onClick={() => onRemove(obj.id)}
                   className="removeBtn"
                   src="/img/btn-remove.svg"
                   alt="Remove"
