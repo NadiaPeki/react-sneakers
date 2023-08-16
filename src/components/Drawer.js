@@ -22,9 +22,11 @@ function Drawer({ onClose, onRemove, items = [] }) {
             alt="Empty"
           />
           <h2>Cart is empty</h2>
-          <p className="opacity-6">Add at least one pair of sneakers to order</p>
+          <p className="opacity-6">
+            Add at least one pair of sneakers to order
+          </p>
           <button className="greenButtonBack">
-            <img src="/img/arrow.svg" alt="Arrow" />
+            <img src="/img/arrow-back.svg" alt="Arrow" />
             Come back
           </button>
         </div>
