@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 import axios from 'axios'
 import Card from './components/Card/Card'
 import Header from './components/Header'
@@ -8,6 +9,7 @@ function App() {
   const [items, setItems] = React.useState([])
   const [cartItems, setCartItems] = React.useState([])
   const [searchValue, setSearchValue] = React.useState('')
+  const [favorites, setFavorites] = React.useState([])
   const [cartOpened, setCartOpened] = React.useState(false)
 
   React.useEffect(() => {
@@ -35,9 +37,14 @@ function App() {
     setCartItems((prev) => [...prev, obj])
   }
 
+  const onAddToFavorite = (obj) => {
+    axios.post('https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/favorites', obj)
+    setFavorites((prev) => [...prev, obj])
+  }
+
   const onRemoveItem = (id) => {
-    // console.log(id)
-    // axios.delete(`https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}`)
+    console.log(id)
+    axios.delete(`https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}`)
     setCartItems((prev) => prev.filter((item) => item.id !== id))
   }
 
@@ -56,6 +63,10 @@ function App() {
       ) : null}
 
       <Header onClickCart={() => setCartOpened(true)} />
+      {/* <Routes>
+        <Route path="/favorites" exact element={1}></Route>
+      </Routes> */}
+
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
           <h1>
@@ -91,7 +102,7 @@ function App() {
                 title={item.title}
                 price={item.price}
                 imageUrl={item.imageUrl}
-                onFavorite={() => console.log('Add to favorite')}
+                onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
               />
             ))}
