@@ -39,7 +39,7 @@ function Home({
           )
           .map((item) => (
             <Card
-              key={item.imageUrl}
+              key={item.id}
               onFavorite={(obj) => onAddToFavorite(obj)}
               onPlus={(obj) => onAddToCart(obj)}
               {...item}

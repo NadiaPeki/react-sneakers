@@ -9,7 +9,7 @@ function Favorites({ items, onAddToFavorite }) {
       <div className="d-flex flex-wrap">
         {items.map((item) => (
           <Card
-            key={item.imageUrl}
+            key={item.id}
             favorited={true}
             onFavorite={onAddToFavorite}
             {...item}

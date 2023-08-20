@@ -39,15 +39,24 @@ function App() {
   }, [])
   // добавили новый объект к старым данным в массиве
   const onAddToCart = (obj) => {
-    axios.post('https://64d9fc1fe947d30a260a97e2.mockapi.io/cart', obj)
-    setCartItems((prev) => [...prev, obj])
+    if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+      axios.delete(`https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${obj.id}`)
+      setCartItems((prev) =>
+        prev.filter((item) => Number(item.id) !== Number(obj.id))
+      )
+    } else {
+      axios.post('https://64d9fc1fe947d30a260a97e2.mockapi.io/cart', obj)
+      setCartItems((prev) => [...prev, obj])
+    }
   }
 
   const onAddToFavorite = async (obj) => {
     try {
-      if (favorites.find((favObj) => favObj.id === obj.id)) {
+      if (favorites.find((favObj) => Number(favObj.id) === Number(obj.id))) {
         axios.delete(`/favorites/${obj.id}`)
-        setFavorites((prev) => prev.filter((item) => item.id !== obj.id))
+        setFavorites((prev) =>
+          prev.filter((item) => Number(item.id) !== Number(obj.id))
+        )
       } else {
         const { data } = await axios.post(
           'https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/favorites',
@@ -63,7 +72,9 @@ function App() {
   const onRemoveItem = (id) => {
     console.log(id)
     axios.delete(`https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}`)
-    setCartItems((prev) => prev.filter((item) => item.id !== id))
+    setCartItems((prev) =>
+      prev.filter((item) => Number(item.id) !== Number(id))
+    )
   }
 
   const onChangeSearchInput = (event) => {
