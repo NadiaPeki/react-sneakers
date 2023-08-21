@@ -1,12 +1,29 @@
 import Card from '../components/Card/Card'
 function Home({
   items,
+  cartItems,
   searchValue,
   setSearchValue,
   onChangeSearchInput,
   onAddToFavorite,
   onAddToCart,
 }) {
+  const renderItems = () => {
+    return items
+      .filter((item) =>
+        item.title.toLowerCase().includes(searchValue.toLowerCase())
+      )
+      .map((item) => (
+        <Card
+          key={item.id}
+          onFavorite={(obj) => onAddToFavorite(obj)}
+          onPlus={(obj) => onAddToCart(obj)}
+          added={cartItems.some((obj) => Number(obj.id) === Number(item.id))} // some вернет true/false
+          {...item}
+        />
+      ))
+  }
+
   return (
     <div className="content p-40">
       <div className="d-flex align-center justify-between mb-40">
@@ -32,20 +49,7 @@ function Home({
         </div>
       </div>
 
-      <div className="d-flex flex-wrap">
-        {items
-          .filter((item) =>
-            item.title.toLowerCase().includes(searchValue.toLowerCase())
-          )
-          .map((item) => (
-            <Card
-              key={item.id}
-              onFavorite={(obj) => onAddToFavorite(obj)}
-              onPlus={(obj) => onAddToCart(obj)}
-              {...item}
-            />
-          ))}
-      </div>
+      <div className="d-flex flex-wrap">{renderItems()}</div>
     </div>
   )
 }
