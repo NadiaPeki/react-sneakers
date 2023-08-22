@@ -156,6 +156,10 @@ header {
 
   .greenButton {
     position: relative;
+    // &:disabled {
+    //   background-color: #ffffff;
+    //   cursor: default;
+    // }
     &:hover {
       img {
         transform: translateX(5px);
@@ -212,7 +216,7 @@ header {
   border: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  color:#ffffff;
+  color: #ffffff;
   cursor: pointer;
   transition: background 0.1s ease-in-out;
 
@@ -246,7 +250,6 @@ header {
   transition: background 0.1s ease-in-out;
   position: relative;
   margin-bottom: 20px;
-  
 
   &:hover {
     background: lighten(#9dd558, 5%);
