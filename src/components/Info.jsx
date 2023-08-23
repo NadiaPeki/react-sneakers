@@ -1,7 +1,7 @@
 import React from 'react'
 import AppContext from '../contex'
 
-export const Info = ({ image, title, description }) => {
+const Info = ({ image, title, description }) => {
   const { setCartOpened } = React.useContext(AppContext)
   return (
     <div className="cartEmty d-flex align-center justify-center flex-column flex">

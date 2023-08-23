@@ -1,16 +1,19 @@
 import React from 'react'
 import axios from 'axios'
-import Info from './Info'
-import AppContext from '../contex'
+import Info from '../Info'
+import AppContext from '../../contex'
+import styles from './Drawer.module.scss'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-function Drawer({ onClose, onRemove, items = [] }) {
+function Drawer({ onClose, onRemove, items = [], opened }) {
   // передаем items значение по умолчанию
   const { cartItems, setCartItems } = React.useContext(AppContext)
   const [orderId, setOrderId] = React.useState(null)
   const [isOrderComplete, setIsOrderComplete] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
+  const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
+
   const onClickOrder = async () => {
     try {
       setIsLoading(true)
@@ -30,14 +33,14 @@ function Drawer({ onClose, onRemove, items = [] }) {
         await delay(1000)
       }
     } catch (error) {
-      alert('Sorry - error!')
+      alert('Something get wrong!')
     }
     setIsLoading(false)
   }
 
   return (
-    <div className="overlay">
-      <div className="drawer">
+    <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
+      <div className={styles.drawer}>
         <h2 className="d-flex justify-between mb-30">
           Cart
           <img
@@ -50,7 +53,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
 
         {items.length > 0 ? (
           <div className="d-flex flex-column flex">
-            <div className="items">
+            <div className="items flex">
               {items.map((obj) => (
                 <>
                   <div
@@ -81,12 +84,12 @@ function Drawer({ onClose, onRemove, items = [] }) {
                 <li>
                   <span>Total:</span>
                   <div></div>
-                  <b>1055 $ </b>
+                  <b>{totalPrice} $ </b>
                 </li>
                 <li>
                   <span>Tax 5%:</span>
                   <div></div>
-                  <b>52 $ </b>
+                  <b>{Math.round((totalPrice / 100) * 5)}$ </b>
                 </li>
               </ul>
               <button
