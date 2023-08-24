@@ -40,17 +40,17 @@ function App() {
 
   const onAddToCart = async (obj) => {
     try {
-      if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+      if (cartItems.find((item) => Number(item.parentId) === Number(obj.id))) {
         setCartItems((prev) =>
-          prev.filter((item) => Number(item.id) !== Number(obj.id))
+          prev.filter((item) => Number(item.parentId) !== Number(obj.id))
         )
         await axios.delete(
-          `https://64d8b8cb5f9bf5b879ce7d61.mockapi.io/cart/${obj.id}`
+          `https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${obj.id}`
         )
       } else {
         setCartItems((prev) => [...prev, obj])
         await axios.post(
-          'https://64d8b8cb5f9bf5b879ce7d61.mockapi.io/cart',
+          'https://64d9fc1fe947d30a260a97e2.mockapi.io/cart',
           obj
         )
       }
@@ -62,9 +62,11 @@ function App() {
   const onRemoveItem = async (id) => {
     try {
       await axios.delete(
-        `https://64d8b8cb5f9bf5b879ce7d61.mockapi.io/cart/${id}`
+        `https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}`
       )
-      setCartItems((prev) => prev.filter((item) => item.id !== id))
+      setCartItems((prev) =>
+        prev.filter((item) => Number(item.parentId) !== Number(id))
+      )
     } catch (error) {
       alert('Something get wrong!')
     }
@@ -74,14 +76,14 @@ function App() {
     try {
       if (favorites.find((favObj) => Number(favObj.id) === Number(obj.id))) {
         axios.delete(
-          `https://64db174b593f57e435b069be.mockapi.io/favorites/${obj.id}`
+          `https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/favorites/${obj.id}`
         )
         setFavorites((prev) =>
           prev.filter((item) => Number(item.id) !== Number(obj.id))
         )
       } else {
         const { data } = await axios.post(
-          'https://64db174b593f57e435b069be.mockapi.io/favorites',
+          'https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/favorites',
           obj
         )
         setFavorites((prev) => [...prev, data])
@@ -95,7 +97,7 @@ function App() {
   }
 
   const isItemAdded = (id) => {
-    return cartItems.some((obj) => Number(obj.id) === Number(id))
+    return cartItems.some((obj) => Number(obj.parentId) === Number(id))
   }
 
   return (
