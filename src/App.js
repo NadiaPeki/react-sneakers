@@ -40,9 +40,9 @@ function App() {
 
   const onAddToCart = async (obj) => {
     try {
-      if (cartItems.find((item) => Number(item.parentId) === Number(obj.id))) {
+      if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
         setCartItems((prev) =>
-          prev.filter((item) => Number(item.parentId) !== Number(obj.id))
+          prev.filter((item) => Number(item.id) !== Number(obj.id))
         )
         await axios.delete(
           `https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${obj.id}`
@@ -65,7 +65,7 @@ function App() {
         `https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}`
       )
       setCartItems((prev) =>
-        prev.filter((item) => Number(item.parentId) !== Number(id))
+        prev.filter((item) => Number(item.id) !== Number(id))
       )
     } catch (error) {
       alert('Something get wrong!')
@@ -100,6 +100,10 @@ function App() {
     return cartItems.some((obj) => Number(obj.parentId) === Number(id))
   }
 
+  const isFavorited = (id) => {
+    return favorites.some((obj) => Number(obj.parentId) === Number(id))
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -107,6 +111,7 @@ function App() {
         cartItems,
         favorites,
         isItemAdded,
+        isFavorited,
         onAddToFavorite,
         onAddToCart,
         setCartOpened,
