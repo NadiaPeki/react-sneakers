@@ -59,11 +59,9 @@ function App() {
     }
   }
 
-  const onRemoveItem = async (id) => {
+  const onRemoveItem = (id) => {
     try {
-      await axios.delete(
-        `https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}`
-      )
+      axios.delete(`https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}`)
       setCartItems((prev) =>
         prev.filter((item) => Number(item.id) !== Number(id))
       )
