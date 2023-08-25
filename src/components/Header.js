@@ -29,7 +29,7 @@ function Header(props) {
           <span>{totalPrice} $</span>
         </li>
         <li>
-          <Link to="/favorites">
+          <Link to="favorites">
             <img
               className="mr-20 cu-p"
               width={20}
@@ -40,7 +40,7 @@ function Header(props) {
           </Link>
         </li>
         <li>
-          <Link to="/orders">
+          <Link to="orders">
             <img width={20} height={20} src="img/user.svg" alt="User" />
           </Link>
         </li>
