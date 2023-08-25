@@ -32,6 +32,7 @@ function App() {
         setItems(itemsResponse.data)
       } catch (error) {
         alert('Something get wrong!')
+        console.error(error)
       }
     }
 
@@ -40,33 +41,49 @@ function App() {
 
   const onAddToCart = async (obj) => {
     try {
-      if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+      const findItem = cartItems.find(
+        (item) => Number(item.parentId) === Number(obj.id)
+      )
+      if (findItem) {
         setCartItems((prev) =>
-          prev.filter((item) => Number(item.id) !== Number(obj.id))
+          prev.filter((item) => Number(item.parentId) !== Number(obj.id))
         )
         await axios.delete(
-          `https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${obj.id}`
+          `https://64d9fc1fe947d30a260a97e2.mockapi.io/cart${findItem.id}`
         )
       } else {
         setCartItems((prev) => [...prev, obj])
-        await axios.post(
+        const { data } = await axios.post(
           'https://64d9fc1fe947d30a260a97e2.mockapi.io/cart',
           obj
+        )
+        setCartItems((prev) =>
+          prev.map((item) => {
+            if (item.parentId === data.parentId) {
+              return {
+                ...item,
+                id: data.id,
+              }
+            }
+            return item
+          })
         )
       }
     } catch (error) {
       alert('Something get wrong!')
+      console.error(error)
     }
   }
 
   const onRemoveItem = (id) => {
     try {
-      axios.delete(`https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}`)
+      axios.delete(`https://64d9fc1fe947d30a260a97e2.mockapi.io/cart${id}`)
       setCartItems((prev) =>
         prev.filter((item) => Number(item.id) !== Number(id))
       )
     } catch (error) {
       alert('Something get wrong!')
+      console.error(error)
     }
   }
 
@@ -74,7 +91,7 @@ function App() {
     try {
       if (favorites.find((favObj) => Number(favObj.id) === Number(obj.id))) {
         axios.delete(
-          `https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/favorites/${obj.id}`
+          `https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/favorites${obj.id}`
         )
         setFavorites((prev) =>
           prev.filter((item) => Number(item.id) !== Number(obj.id))
@@ -88,8 +105,10 @@ function App() {
       }
     } catch (error) {
       alert('Something get wrong!')
+      console.error(error)
     }
   }
+
   const onChangeSearchInput = (event) => {
     setSearchValue(event.target.value)
   }
