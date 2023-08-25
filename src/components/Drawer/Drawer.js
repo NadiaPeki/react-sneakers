@@ -1,39 +1,40 @@
 import React from 'react'
 import axios from 'axios'
 import Info from '../Info'
-import AppContext from '../../contex'
+import useCart from '../../hooks/useCart'
 import styles from './Drawer.module.scss'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 function Drawer({ onClose, onRemove, items = [], opened }) {
   // передаем items значение по умолчанию
-  const { cartItems, setCartItems } = React.useContext(AppContext)
+  const { cartItems, setCartItems, totalPrice } = useCart()
   const [orderId, setOrderId] = React.useState(null)
   const [isOrderComplete, setIsOrderComplete] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
-  const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
 
   const onClickOrder = async () => {
     try {
       setIsLoading(true)
       const { data } = await axios.post(
         'https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/orders',
-        { items: cartItems }
+        {
+          items: cartItems,
+        }
       )
-
       setOrderId(data.id)
       setIsOrderComplete(true)
       setCartItems([])
+
       for (let i = 0; i < cartItems.length; i++) {
         const item = cartItems[i]
         await axios.delete(
-          'https://64d9fc1fe947d30a260a97e2.mockapi.io/cart' + item.id
+          'https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/' + item.id
         )
         await delay(1000)
       }
     } catch (error) {
-      alert('Something get wrong!')
+      alert('Ошибка при создании заказа :(')
     }
     setIsLoading(false)
   }
