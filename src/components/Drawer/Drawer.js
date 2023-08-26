@@ -34,7 +34,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
         await delay(1000)
       }
     } catch (error) {
-      alert('Ошибка при создании заказа :(')
+       alert('Something get wrong!')
     }
     setIsLoading(false)
   }

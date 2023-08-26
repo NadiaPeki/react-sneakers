@@ -23,7 +23,7 @@ function App() {
           await Promise.all([
             axios.get('https://64d9fc1fe947d30a260a97e2.mockapi.io/cart'),
             axios.get('https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/favorites'),
-            axios.get('https://60d62397943aa60017768e77.mockapi.io/items'),
+            axios.get('https://64d8b8cb5f9bf5b879ce7d61.mockapi.io/items'),
           ])
 
         setIsLoading(false)
