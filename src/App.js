@@ -49,7 +49,7 @@ function App() {
           prev.filter((item) => Number(item.parentId) !== Number(obj.id))
         )
         await axios.delete(
-          `https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${findItem.id}`
+          'https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${findItem.id}'
         )
       } else {
         setCartItems((prev) => [...prev, obj])
@@ -77,7 +77,7 @@ function App() {
 
   const onRemoveItem = (id) => {
     try {
-      axios.delete(`https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}`)
+      axios.delete('https://64d9fc1fe947d30a260a97e2.mockapi.io/cart/${id}')
       setCartItems((prev) =>
         prev.filter((item) => Number(item.id) !== Number(id))
       )
@@ -91,7 +91,7 @@ function App() {
     try {
       if (favorites.find((favObj) => Number(favObj.id) === Number(obj.id))) {
         axios.delete(
-          `https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/favorites/${obj.id}`
+          'https://64ddf2d1825d19d9bfb1c4c7.mockapi.io/favorites/${obj.id}'
         )
         setFavorites((prev) =>
           prev.filter((item) => Number(item.id) !== Number(obj.id))
@@ -144,11 +144,10 @@ function App() {
           onRemove={onRemoveItem}
           opened={cartOpened}
         />
-
         <Header onClickCart={() => setCartOpened(true)} />
         <Routes>
           <Route
-            path="/"
+            path=""
             exact
             element={
               <Home
@@ -164,9 +163,9 @@ function App() {
             }
           ></Route>
 
-          <Route path="/favorites" exact element={<Favorites />}></Route>
+          <Route path="favorites" exact element={<Favorites />}></Route>
 
-          <Route path="/orders" exact element={<Orders />}></Route>
+          <Route path="orders" exact element={<Orders />}></Route>
         </Routes>
       </div>
     </AppContext.Provider>
