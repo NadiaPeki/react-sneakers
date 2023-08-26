@@ -118,7 +118,9 @@ function App() {
   }
 
   const isFavorited = (id) => {
-    return favorites.some((favorites) => Number(favorites.parentId) === Number(id))
+    return favorites.some(
+      (favorite) => Number(favorite.parentId) === Number(id)
+    )
   }
 
   return (
