@@ -34,7 +34,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
         await delay(1000)
       }
     } catch (error) {
-       alert('Something get wrong!')
+      alert('Something get wrong!')
     }
     setIsLoading(false)
   }
@@ -62,7 +62,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                     className="cartItem d-flex align-center mb-20"
                   >
                     <div
-                      style={{ backgroundImage: ` ` }}
+                      style={{ backgroundImage: `url(${obj.imageUrl})` }}
                       className="cartItemImg"
                     />
 
