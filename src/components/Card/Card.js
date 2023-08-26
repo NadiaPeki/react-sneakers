@@ -58,12 +58,7 @@ function Card({
             </div>
           )}
 
-          <img
-            width={133}
-            height={133}
-            src={`url(${obj.imageUrl})`}
-            alt="Sneakers"
-          />
+          <img width={133} height={133} src={imageUrl} alt="Sneakers" />
           <h5>{title}</h5>
           <div className="d-flex justify-between align-center">
             <div className="d-flex flex-column">
