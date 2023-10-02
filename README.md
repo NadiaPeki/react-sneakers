@@ -1,1 +1,1 @@
-Project on page react-sneakers-rosy.vercel.app
+Project on the page https://react-sneakers-rosy.vercel.app/
